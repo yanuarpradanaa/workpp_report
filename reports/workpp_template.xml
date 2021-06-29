@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="workpp_report.report_workpp">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="report.internal_layout">
+                <div class="page" style="font-family: Consolas; font-size: 20px !important;">
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h3 >Production Order : <span t-field="o.name"/></h3>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <h3 >No. Job/SPK : <span t-field="o.no_spk" /></h3>
+                            
+                        </div>
+                    </div>
+                    <div class="row mt32 mb32">
+                       <!--  <div class="col-xs-3">
+                            <strong>Source Document:</strong><br/>
+                            <span t-field="o.origin"/>
+                        </div> -->
+                        <div class="col-xs-6">
+                            <strong>Nama Job: </strong>
+                            <strong><span t-field="o.routing_id"/></strong>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <strong>Quantity: </strong>
+                            <span t-field="o.product_qty" t-field-options="{'widget':'integer'}"/>
+                            <span t-field="o.product_uom_id.name" groups="product.group_uom"/>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <strong>Produk: </strong>
+                            <span t-field="o.product_id"/>
+                        </div>
+
+
+                        <div class="col-xs-6">
+                            <strong>Tanggal: </strong>
+                            <span t-field="o.date_planned_start" t-field-options="{'format': 'dd/MM/yyyy'}"/>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <strong>Kategori: </strong>
+                            <span t-field="o.product_id.categ_id.name"/>
+                        </div>
+                      
+                        <div class="col-xs-6">
+                            <strong>Deadline akhir: </strong>
+                            <span t-field="o.deadline" t-field-options="{'format': 'dd/MM/yyyy'}"/>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <strong>Pelanggan: </strong>
+                            <span t-field="o.pelanggan"/>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <strong>PPIC: </strong>
+                            <span t-field="o.user_id"/>
+                        </div>
+           
+                        <div class="col-xs-6">
+                            <t t-if="o.cetak_baru">
+                                <strong>Cetak Baru</strong>
+                            </t>
+                            <t t-if="o.repeat">
+                                <strong>Repeat</strong>
+                            </t>
+                            <t t-if="o.proof">
+                                <strong>Proof</strong>
+                            </t>
+                            
+                            <t t-if="o.repeat and o.repeat_perubahan">
+                                <span>: </span>
+                                <span t-field="o.repeat_perubahan"/>
+                            </t>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <strong>Acuan: </strong>
+                            <span t-field="o.acuan"/>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt32 mb32">
+                        <div class="col-xs-6">
+                            <strong>Kertas: </strong>
+                            <t t-if="o.bom_id.kertas_prima">
+                                <span>Prima</span>
+                            </t>
+                            <t t-if="o.bom_id.kertas_sendiri">
+                                <span>Bawa Sendiri</span>
+                            </t>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <strong>1 Lembar Plano jadi: </strong>
+                            <strong>
+                                <span t-field="o.bom_id.lembar_plano" t-field-options="{'widget':'integer'}"/>
+                            </strong>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <strong>Ukuran Jadi (cm): </strong>
+                            <span t-field="o.bom_id.ukuran_kertas"/>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <strong>1 Lembar Druck jadi: </strong>
+                            <strong>
+                                <span t-field="o.bom_id.lembar_druck" t-field-options="{'widget':'integer'}"/>
+                            </strong>
+                        </div>
+
+                        <div class="col-xs-6" >
+                            <strong>Ukuran Potong (cm): </strong>
+                            <strong>
+                                <span t-field="o.bom_id.ukuran_potong" />
+                            </strong>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <strong>Insheet: </strong>
+                            <strong>
+                                <span t-field="o.bom_id.insheet" t-field-options="{'widget':'integer'}"/>
+                            </strong>
+                            <span> Lbr Druck</span>
+                        </div>
+
+
+                        <div class="col-xs-6">
+                            <strong>Jumlah Plano: </strong>
+                            <strong>
+                                <span t-field="o.bom_id.jumlah_plano" t-field-options="{'widget':'integer'}"/>
+                            </strong>
+                            <span> Lbr Plano</span>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <strong>Jumlah Druck: </strong>
+                            <strong>
+                                <span t-field="o.bom_id.jumlah_druck" t-field-options="{'widget':'integer'}"/>
+                            </strong>
+                            <span> Lbr Druck</span>
+                        </div>
+
+                        <t t-if="o.bom_id.jenis_kertas">
+                            <div class="col-xs-6">
+                                <strong>Bahan Kertas: </strong><br/>
+                                <span t-field="o.bom_id.jenis_kertas"/>
+                            </div>
+                        </t>
+
+                        <div class="col-xs-6">
+                            <br/>
+                            <strong>TTD Potong: </strong>
+                            
+                        </div>
+                    </div>
+
+                    
+
+                    <div t-if="o.workorder_ids">
+                        <strong>Urutan Kerja</strong>
+                        <table class="table table-condensed" >
+                            <tr>
+                                <td class="text-center" style="border:1px solid black;"><strong>No.</strong></td>
+
+                                <td class="text-center" style="border:1px solid black;"><strong>Nama</strong></td>
+                                <td class="text-center" style="border:1px solid black;"><strong>Mesin</strong></td>
+                                <!-- <td class="text-center"><strong>No. Of Minutes</strong></td> -->
+                                <td class="text-center" style="border:1px solid black;"><strong>Deskripsi</strong></td>
+                                
+                                <td class="text-center" style="border:1px solid black; width: 140px;"><strong>Lempar</strong></td>
+                                <td class="text-center" style="border:1px solid black; width: 140px;"><strong>Jumlah</strong></td>
+                                <td class="text-center" style="border:1px solid black; width: 80px;"><strong>TTD</strong></td>
+                            </tr>
+
+                            <t t-set="counter" t-value="0" />
+                            <tr t-foreach="o.workorder_ids" t-as="line2" >
+                                <td class="text-center" style="border:1px solid black; height: 80px;">
+                                    <t t-set="counter" t-value="counter + 1"/>
+                                    <span t-esc="counter"/>
+                                </td>
+
+                                <td class="text-center" style="border:1px solid black;"><span t-field="line2.name"/></td>
+                                <td class="text-center" style="border:1px solid black;"><span t-field="line2.workcenter_id.name"/></td>
+                                <!-- <td class="text-center"><span t-field="line2.duration_expected"/></td> -->
+                                <td class="text-center" style="border:1px solid black;">
+                                    <!-- Plat -->
+                                    <t t-if="line2.operation_id.note">
+                                        <span t-field="line2.operation_id.note"/>
+                                    </t>
+                                    <!-- End Plat -->
+
+                                    <!-- Cetak -->
+                                    <t t-if="line2.operation_id.side1">
+                                        <span t-field="line2.operation_id.side1"/>
+                                        <br/>
+                                    </t>
+
+                                    <t t-if="line2.operation_id.side2">
+                                        <span t-field="line2.operation_id.side2"/>
+                                        <br/>
+                                    </t>
+
+                                    <t t-if="line2.operation_id.depan">
+                                        <span>Depan 4 Warna</span>
+                                        <br/>
+                                    </t>
+
+                                    <t t-if="line2.operation_id.depan_tambah_warna">
+                                        <t t-if="line2.operation_id.depan">
+                                            <span>+ </span>
+                                        </t>
+                                        <span t-field="line2.operation_id.depan_tambah_warna"/>
+                                    </t>
+
+                                    <t t-if="line2.operation_id.belakang">
+                                        <span>Belakang 4 Warna</span>
+                                        <br/>
+                                    </t>
+
+                                    <t t-if="line2.operation_id.belakang_tambah_warna">
+                                        <t t-if="line2.operation_id.belakang">
+                                            <span>+ </span>
+                                        </t>
+                                        <span t-field="line2.operation_id.belakang_tambah_warna"/>
+                                    </t>
+                                    <!-- End Cetak -->
+
+                                    <!-- Coating -->
+                                    <t t-if="line2.operation_id.coating_side">
+                                        <span t-field="line2.operation_id.coating_side"/>
+                                    </t>
+                                    <t t-if="line2.operation_id.coating_ket">
+                                        <span t-field="line2.operation_id.coating_ket"/>
+                                    </t>
+                                    <!-- End Coating -->
+
+                                    <!-- Laminasi -->
+                                    <t t-if="line2.operation_id.eflute_lain">
+                                        <span t-field="line2.operation_id.eflute_lain"/>
+                                    </t>
+                                    <!-- End Laminasi -->
+
+                                    <!-- Finishing I -->
+                                    <t t-if="line2.operation_id.spiral_lubang">
+                                        <span>Spiral </span><span t-field="line2.operation_id.spiral_lubang"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="line2.operation_id.spiral_ukuran">
+                                        <span>Ukuran </span><span t-field="line2.operation_id.spiral_ukuran"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="line2.operation_id.spiral_warna">
+                                        <span>Warna </span><span t-field="line2.operation_id.spiral_warna"/>
+                                    </t>
+                                    <!-- End Finishing I -->
+
+                                    <!-- Packaging Lem -->
+                                    <t t-if="line2.operation_id.pack_lem">
+                                        <span t-field="line2.operation_id.pack_lem"/>
+                                    </t>
+                                    <!-- End Packaging Lem -->
+
+                                    <!-- Finishing II -->
+                                    <t t-if="line2.operation_id.hot_print_warna">
+                                        <span t-field="line2.operation_id.hot_print_warna"/>
+                                    </t>
+                                    <t t-if="line2.operation_id.emboss_naik_turun">
+                                        <span t-field="line2.operation_id.emboss_naik_turun"/>
+                                    </t>
+                                    <!-- End Finishing II -->
+
+                                    <!-- Plong -->
+                                    <t t-if="line2.operation_id.plong">
+                                        <span t-field="line2.operation_id.plong"/>
+                                    </t>
+                                    <!-- End Plong -->
+
+                                    <!-- Finishing III -->
+                                    <t t-if="line2.operation_id.potong_jadi_ket">
+                                        <span t-field="line2.operation_id.potong_jadi_ket"/>
+                                    </t>
+
+                                    <t t-if="line2.operation_id.fin_lain">
+                                        <span t-field="line2.operation_id.fin_lain"/>
+                                    </t>
+                                    <!-- End Finishing III -->
+                                </td>
+
+                                <td class="text-center" style="border:1px solid black;"></td>
+                                <td class="text-center" style="border:1px solid black;"></td>
+                                <td class="text-center" style="border:1px solid black;"></td>
+                            </tr>
+                            <t t-set="counter" t-value="0" />
+                        </table>
+                    </div>
+
+                    
+                    <div class="col-xs-6">
+                        <strong>Keterangan: </strong>
+                        <span t-field="o.keterangan"/>
+                    </div>
+                    
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+</odoo>

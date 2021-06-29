@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+	<data>
+
+        <report 
+            string="Prima Print SPK" 
+            id="workpp_report_production_order" 
+            model="mrp.production" 
+            name="workpp_report.report_workpp"
+            file="workpp_report.reports.workpp_template" 
+            report_type="qweb-pdf"
+        />
+	</data>
+</odoo>
